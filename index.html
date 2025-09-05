@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="משרד עורכי דין עומר ראובן - ייעוץ וייצוג משפטי מקצועי" />
+    <meta name="theme-color" content="#1a202c" />
+    <title>משרד עורכי דין עומר ראובן</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="logo.png" />
+
+    <style>
+      /* Theme variables: edit these to change default colors */
+      :root {
+        /* Accent */
+        --primary-color: #f4c542; /* זהב בהיר ומודרני */
+        --primary-rgb: 244,197,66;
+        --primary-text-color: #000000;
+        /* Font scaling for accessibility widget */
+        --aw-font-scale: 1;
+
+        /* Dark base (default) */
+        --bg-color: #1a202c;
+        --text-color: #edf2f7;
+        --muted-text: #cbd5e1;
+        --surface-color: rgba(255,255,255,0.05);
+        --border-color: rgba(255,255,255,0.12);
+        --navbar-bg: rgba(0,0,0,0.40);
+        --navbar-text: #edf2f7;
+        --section-bg: rgba(0,0,0,0.30);
+        --overlay-from: rgba(0,0,0,0.60);
+        --overlay-via: rgba(26,32,44,0.70);
+        --overlay-to: #1a202c;
+
+        /* Light palette base */
+        --bg-light: #ffffff;
+        --text-dark: #111827;
+        --surface-light: #f5f6f8;
+        --border-light: rgba(0,0,0,0.10);
+        --navbar-bg-light: #ffffff;
+        --section-bg-light: #f6f7fa;
+        --overlay-from-light: rgba(0,0,0,0.25);
+        --overlay-via-light: rgba(255,255,255,0.60);
+        --overlay-to-light: #ffffff;
+      }
+      html, body { height: 100%; }
+      /* Global scalable root font size for responsive typography */
+      /* Slightly larger, responsive root font size for better readability */
+      html { font-size: clamp(17px, 1vw + 15px, 19.5px); }
+      body {
+        font-family: 'Assistant', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, 'Noto Sans Hebrew', 'Noto Sans', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        /* Base text size scales with widget multiplier; 1rem is set by html above */
+        font-size: calc(1rem * var(--aw-font-scale));
+      }
+      /* Smooth transitions */
+      body, .navbar, .mode-toggle-btn, .themed-button, .themed-card, .themed-section, .themed-footer, .hero-overlay { transition: background-color .3s ease, color .3s ease, border-color .3s ease, filter .3s ease; }
+
+      /* Dark theme variables applied */
+      .site-dark {
+        --bg-color: #1a202c;
+        --text-color: #edf2f7;
+        --muted-text: #cbd5e1;
+        --surface-color: rgba(255,255,255,0.05);
+        --border-color: rgba(255,255,255,0.12);
+        --navbar-bg: rgba(0,0,0,0.40);
+        --navbar-text: #edf2f7;
+        --section-bg: rgba(0,0,0,0.30);
+        --overlay-from: rgba(0,0,0,0.68);
+        --overlay-via: rgba(26,32,44,0.78);
+        --overlay-to: #1a202c;
+      }
+
+      /* Light theme variables applied */
+      .site-light {
+        --bg-color: var(--bg-light);
+        --text-color: var(--text-dark);
+        --muted-text: #374151;
+        --surface-color: var(--surface-light);
+        --border-color: var(--border-light);
+        --navbar-bg: var(--navbar-bg-light);
+        --navbar-text: var(--text-dark);
+        --section-bg: var(--section-bg-light);
+        --overlay-from: rgba(0,0,0,0.35);
+        --overlay-via: rgba(255,255,255,0.58);
+        --overlay-to: var(--overlay-to-light);
+        /* Lighter accent tuned for light mode */
+        --primary-color: #ffd700;
+        --primary-rgb: 255,215,0;
+        --primary-text-color: #111827;
+      }
+
+      /* Navbar uses theme vars */
+      .navbar { background: var(--navbar-bg); color: var(--navbar-text); border-bottom: 1px solid var(--border-color); backdrop-filter: saturate(120%) blur(6px); }
+      .navbar a { color: var(--navbar-text); }
+      .navbar a:hover { color: var(--primary-color); }
+      .site-light .navbar .mode-toggle-btn { background: #111827; color: #ffffff; border-color: #111827; }
+      .site-dark .navbar .mode-toggle-btn { border: 1px solid rgba(255,255,255,.25); color: #edf2f7; background: rgba(0,0,0,.25); }
+
+      /* Accent helpers */
+      .themed-accent { color: var(--primary-color) !important; }
+      .accent-bg-soft { background-color: rgba(var(--primary-rgb), .20) !important; }
+      /* Ensure brand-colored icons/borders use brighter gold */
+      .brand-icon { color: var(--primary-color); }
+      .brand-border { border-color: var(--primary-color); }
+
+      /* Button uses theme vars; size scales with root font */
+      .themed-button {
+        background: var(--primary-color);
+        color: var(--primary-text-color);
+        font-size: 1rem; line-height: 1.25;
+        transition: background-color .24s ease, color .24s ease, filter .24s ease, box-shadow .24s ease, transform .24s ease;
+        will-change: transform;
+      }
+      .themed-button:hover { filter: brightness(0.96); transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,.25); }
+      .themed-button:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+      @media (prefers-reduced-motion: reduce) {
+        .themed-button { transition: background-color .2s ease, color .2s ease, filter .2s ease, box-shadow .2s ease; }
+        .themed-button:hover { transform: none; }
+      }
+
+      /* Cards and sections */
+      .themed-card { background: var(--surface-color); border: 1px solid var(--border-color); }
+      .themed-section { background: var(--section-bg); }
+      .themed-footer { background: var(--navbar-bg); }
+
+      /* Hero overlay gradient from variables */
+      .hero-overlay { background-image: linear-gradient(to bottom, var(--overlay-from), var(--overlay-via), var(--overlay-to)); }
+
+      /* Hero typography refinements */
+      .hero-wrapper { padding-block: clamp(2rem, 6vh, 4rem); }
+      .hero-title { font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; font-size: clamp(2.35rem, 4.7vw, 3.9rem); }
+      .hero-subtitle { font-weight: 500; line-height: 1.65; font-size: clamp(1.2rem, 2.3vw, 1.6rem); }
+      .hero-cta { font-weight: 700; padding: 1rem 1.6rem; border-radius: .5rem; }
+
+      /* Section-wide typography and spacing for consistency */
+      .section-wrapper { padding-block: clamp(2rem, 5vh, 4rem); }
+      .section-title { font-weight: 800; line-height: 1.25; font-size: clamp(1.85rem, 3.3vw, 2.4rem); margin: 0; margin-block: clamp(1rem, 3vh, 2rem); }
+      .section-subtitle { font-weight: 500; line-height: 1.65; font-size: clamp(1.125rem, 2.1vw, 1.3rem); }
+      .body-text { font-weight: 400; line-height: 1.85; font-size: clamp(1.0625rem, 1.7vw, 1.2rem); }
+      .card-title { font-weight: 700; font-size: clamp(1.2rem, 1.9vw, 1.35rem); }
+      .card-list li { line-height: 1.7; }
+
+      /* Areas of Expertise layout and bullets */
+      .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      @media (max-width: 640px) { .expertise-grid { grid-template-columns: 1fr; } }
+      .expertise-card { display: flex; flex-direction: column; justify-content: flex-start; }
+      .expertise-title { display: inline-flex; align-items: center; gap: .625rem; font-weight: 700; line-height: 1.3; font-size: clamp(1.25rem, 2.3vw, 1.6rem); }
+      .expertise-title svg { inline-size: 1.2em; block-size: 1.2em; color: var(--primary-color); flex: 0 0 auto; }
+      .expertise-card .brand-list { margin-top: .75rem; }
+      .brand-list { list-style: none; padding: 0; margin: 0; }
+      .brand-list li { position: relative; padding-inline-start: 1.25rem; margin-block: .35rem; }
+      .brand-list li::before { content: ""; position: absolute; inset-inline-start: 0; top: .6em; inline-size: .4rem; block-size: .4rem; background-color: var(--primary-color); border-radius: 9999px; transform: translateY(-50%); }
+
+      /* Contact section layout (single column after removing details block) */
+      .contact-grid { display: block; }
+
+      /* Theme-aware text helpers */
+      .themed-text { color: var(--text-color) !important; }
+      .themed-muted { color: var(--muted-text) !important; }
+
+      /* Inputs themed */
+      .themed-input { background: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: .375rem; padding: .75rem 1rem; width: 100%; }
+      .themed-input::placeholder { color: var(--muted-text); }
+      .themed-input:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; border-color: var(--primary-color); }
+
+      /* Mobile menu button colors by theme */
+      .mobile-menu-btn { color: var(--text-color); border: 1px solid var(--border-color); background: transparent; }
+      .mobile-menu-btn:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
+      /* Balanced section utilities for equal visual height across sections */
+      .balanced-section { min-block-size: clamp(560px, 85svh, 900px); display: flex; align-items: center; }
+      @media (max-width: 640px) {
+        .balanced-section { min-block-size: auto; }
+        h1 { font-size: clamp(1.75rem, 4.5vw, 2.75rem); }
+        h2 { font-size: clamp(1.375rem, 3.5vw, 2rem); }
+        p { font-size: clamp(1rem, 2.6vw, 1.125rem); }
+        .themed-button { font-size: clamp(0.95rem, 2.6vw, 1.05rem); }
+      }
+
+      /* Navbar separators between items (desktop + mobile) */
+      .navbar .nav-list,
+      .navbar .nav-list-mobile { gap: 0; }
+      .navbar .nav-list > li,
+      .navbar .nav-list-mobile > li { display: inline-flex; align-items: center; }
+      .navbar .nav-list > li > a,
+      .navbar .nav-list-mobile > li > a { padding-inline: .75rem; display: inline-flex; align-items: center; }
+      .navbar .nav-list > li:not(:last-child)::after,
+      .navbar .nav-list-mobile > li:not(:last-child)::after {
+        content: ""; inline-size: 1px; block-size: 1.2em; background-color: var(--border-color);
+        margin-inline: .75rem; opacity: .7; border-radius: 1px; align-self: center;
+      }
+
+      /* Brand hover + refined gold styling */
+      .brand-logo { transition: transform .26s ease, box-shadow .26s ease, filter .26s ease; transform-origin: center; background: radial-gradient(120% 120% at 30% 30%, rgba(var(--primary-rgb), .35), transparent 60%); }
+      .brand-name { transition: color .26s ease, text-shadow .26s ease, filter .26s ease; letter-spacing: .01em; }
+      .brand-link:hover .brand-logo { transform: scale(1.035); box-shadow: 0 8px 16px rgba(0,0,0,.18); filter: brightness(1.04); }
+      .brand-link:hover .brand-name { color: var(--primary-color); text-shadow: 0 0 .35rem rgba(var(--primary-rgb), .35); filter: brightness(1.02); }
+      @media (prefers-reduced-motion: reduce) {
+        .brand-logo, .brand-name { transition: none; }
+        .brand-link:hover .brand-logo { transform: none; filter: none; box-shadow: none; }
+        .brand-link:hover .brand-name { filter: none; text-shadow: none; }
+      }
+      .balanced-grid { grid-auto-rows: 1fr; }
+    </style>
+  </head>
+  <body class="site-dark antialiased">
+    <a href="#main-content" class="accessibility-widget-skip-link">דלג לתוכן</a>
+    <header class="navbar fixed top-0 z-50 w-full border-b border-white/10 backdrop-blur">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" id="brand-home-link" class="brand-link flex items-center gap-3" aria-label="דף הבית">
+            <div class="brand-logo h-8 w-8 rounded-full ring-1 ring-[#c59d5f]/50 bg-black/20 overflow-hidden">
+              <object data="logo.png" type="image/png" class="h-full w-full" aria-label="לוגו עו״ד עומר ראובן">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-full w-full text-[#c59d5f]" fill="none" stroke="currentColor" stroke-width="1.4">
+                  <circle cx="12" cy="12" r="10" stroke="#c59d5f" />
+                  <path d="M12 4v3M6 7h12" stroke-linecap="round" />
+                  <path d="M8 7l-3 6h6l-3-6z" />
+                  <path d="M16 7l-3 6h6l-3-6z" />
+                  <path d="M10 16v3h4v-3M8 19h8" />
+                </svg>
+              </object>
+            </div>
+            <span class="brand-name text-lg sm:text-xl font-extrabold tracking-tight themed-accent">עו״ד עומר ראובן</span>
+          </a>
+          <nav class="hidden sm:block">
+            <ul class="nav-list flex items-center text-sm">
+              <li><a href="#about" class="transition-colors hover:text-[#c59d5f]">אודות</a></li>
+              <li><a href="#practice" class="transition-colors hover:text-[#c59d5f]">תחומי עיסוק</a></li>
+              <li><a href="#contact" class="transition-colors hover:text-[#c59d5f]">צור קשר</a></li>
+            </ul>
+          </nav>
+          <button id="mode-toggle" class="mode-toggle-btn hidden sm:inline-flex p-2 rounded-md text-sm font-semibold focus:outline-none" aria-pressed="false" aria-label="החלפת מצב צבע">
+            <svg class="icon-moon h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-sun h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zm9-10v-2h-3v2h3zm-3.95 6.95l1.41 1.41 1.8-1.79-1.41-1.41-1.8 1.79zM13 1h-2v3h2V1zm-6.24 16.24l-1.79 1.8 1.41 1.41 1.8-1.79-1.42-1.42zM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
+          </button>
+          <button class="mobile-menu-btn sm:hidden inline-flex items-center justify-center rounded-md px-3 py-2 text-sm" aria-label="תפריט">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+        <nav class="sm:hidden pb-3">
+          <ul class="nav-list-mobile flex items-center justify-center text-sm">
+            <li><a href="#about" class="block py-2 transition-colors hover:text-[#c59d5f]">אודות</a></li>
+            <li><a href="#practice" class="block py-2 transition-colors hover:text-[#c59d5f]">תחומי עיסוק</a></li>
+            <li><a href="#contact" class="block py-2 transition-colors hover:text-[#c59d5f]">צור קשר</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="pt-16">
+      <section id="hero" class="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center" style="background-image: url('hero-libra.jpg'); filter: grayscale(40%);"></div>
+        <div class="hero-overlay absolute inset-0 -z-0"></div>
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 hero-wrapper">
+          <div class="max-w-3xl mx-auto text-center">
+            <h1 class="mt-2 hero-title themed-text drop-shadow-xl">
+              ליווי וייעוץ משפטי מקצועי בתחום הפלילי<br class="hidden sm:block" />
+              ובתחום חדלות הפירעון
+            </h1>
+            <p class="mt-5 hero-subtitle themed-muted drop-shadow-md">
+              עו״ד עומר ראובן – ייצוג אישי, נחוש וללא פשרות
+            </p>
+            <div class="mt-10">
+              <a href="#contact" class="themed-button hero-cta inline-flex items-center justify-center shadow-xl shadow-black/40 drop-shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c59d5f] focus:ring-offset-transparent">
+                לקביעת פגישת ייעוץ
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="balanced-section section-wrapper scroll-mt-24 themed-text">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="section-title themed-accent text-center">מי אני</h2>
+          <p class="mt-6 max-w-3xl body-text themed-text mx-auto text-center">
+            עו"ד עומר ראובן מביא איתו שילוב מקצועי ייחודי של ניסיון משפטי בתחומים קריטיים, תוך מתן דגש מיוחד על יחס אישי וליווי צמוד. במהלך הקריירה שלו צבר שלוש שנות ניסיון במשרד עורכי דין של נאמן בהליכי חדלות הפירעון, שם פיתח מומחיות מעמיקה בטיפול במצבי משבר כלכלי ובהליכים מורכבים של פשיטת רגל וחדלות פירעון.
+          </p>
+          <p class="mt-4 max-w-3xl body-text themed-text mx-auto text-center">
+            עו"ד ראובן השלים את התמחותו בפרקליטות מחוז הדרום, שם רכש הבנה יסודית של עבודת התביעה הכללית ופיתח כישורי ייצוג ברמה הגבוהה ביותר. השילוב הייחודי הזה מעניק לו פרספקטיבה מקיפה ויכולת להתמודד עם אתגרים משפטיים מורכבים ממספר זוויות.
+          </p>
+          <p class="mt-4 max-w-3xl body-text themed-text mx-auto text-center">
+            עו"ד ראובן מאמין בגישה אישית ומותאמת לכל לקוח, תוך מתן ליווי צמוד ורגיש לאורך כל התהליך המשפטי. הוא מקפיד על זמינות מלאה, תקשורת שקופה ובהירה, והבנה עמוקה של הצרכים הייחודיים של כל מקרה. ייצוג מקצועי, מנוסה ומוקדש, שמשלב מומחיות משפטית עם התייחסות אנושית ואכפתיות אמיתית להשגת התוצאות הטובות ביותר עבורכם.
+          </p>
+        </div>
+      </section>
+
+      <section id="practice" class="balanced-section themed-section themed-text section-wrapper scroll-mt-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="section-title themed-accent text-center">תחומי התמחות</h2>
+          <div class="mt-6 expertise-grid max-w-4xl mx-auto balanced-grid">
+            <div class="expertise-card themed-card themed-text rounded-xl p-6 shadow-lg transition self-start">
+              <h3 class="expertise-title">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v4" stroke-linecap="round"/><path d="M6 7h12" stroke-linecap="round"/><path d="M8 7l-3 6h6l-3-6z" stroke-linejoin="round"/><path d="M16 7l-3 6h6l-3-6z" stroke-linejoin="round"/><path d="M10 16v3h4v-3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 19h8" stroke-linecap="round"/></svg>
+                משפט פלילי
+              </h3>
+              <ul class="brand-list card-list mt-3 text-right text-sm sm:text-base themed-text">
+                <li>ייצוג בחקירות ומעצרים</li>
+                <li>ניהול תיקי פשיעה חמורה</li>
+                <li>ליווי בהליכי שימוע ומחיקת רישום פלילי</li>
+                <li>ייצוג בבית משפט לנוער</li>
+                <li>ייצוג אסירים בוועדות שחרורים</li>
+              </ul>
+            </div>
+
+            <div class="expertise-card themed-card themed-text rounded-xl p-6 shadow-lg transition self-start">
+              <h3 class="expertise-title">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l7 4v5c0 5-3.6 9-7 10-3.4-1-7-5-7-10V7l7-4z"/><path d="M9 12.5l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                חדלות פירעון וייצוג חייבים
+              </h3>
+              <ul class="brand-list card-list mt-3 text-right text-sm sm:text-base themed-text">
+                <li>פתיחת הליכי חדלות פירעון</li>
+                <li>הגנה מפני עיקולים והליכי הוצאה לפועל</li>
+                <li>תכנון שיקום כלכלי וביטול חובות</li>
+                <li>סיוע בקבלת הפטר וקביעת צווי תשלומים נוחים</li>
+                <li>ליווי בהליכי הסדר חוב</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="balanced-section section-wrapper scroll-mt-24 themed-text">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="section-title themed-accent text-center">יש לכם תיק פלילי או חוב שמלחיץ אתכם?</h2>
+          <p class="mt-3 section-subtitle themed-muted text-center">השאירו פרטים עכשיו לייעוץ ראשוני חינם</p>
+          <div class="contact-grid">
+            <div class="contact-col">
+              <form action="#" method="post" class="grid grid-cols-1 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-semibold mb-2">שם מלא</label>
+                  <input id="name" name="name" type="text" required class="themed-input" placeholder="שם מלא" />
+                </div>
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div>
+                    <label for="phone" class="block text-sm font-semibold mb-2">טלפון</label>
+                    <input id="phone" name="phone" type="tel" required class="themed-input" placeholder="05X-XXXXXXX" />
+                  </div>
+                  <div>
+                    <label for="email" class="block text-sm font-semibold mb-2">דוא&quot;ל</label>
+                    <input id="email" name="email" type="email" required class="themed-input" placeholder="name@example.com" />
+                  </div>
+                </div>
+                <div>
+                  <label for="subject" class="block text-sm font-semibold mb-2">נושא הפנייה</label>
+                  <input id="subject" name="subject" type="text" required class="themed-input" placeholder="באיזה נושא נוכל לסייע?" />
+                </div>
+                <div class="pt-2 text-center">
+                  <button type="submit" class="themed-button inline-flex items-center justify-center rounded-md px-6 py-3 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c59d5f] focus:ring-offset-transparent">
+                    שליחה
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="themed-footer border-t">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-sm themed-text text-center">
+          <div class="mx-auto mb-4 h-12 w-12 rounded-full ring-1 ring-[#c59d5f]/50 bg-black/20 overflow-hidden">
+            <object data="logo.png" type="image/png" class="h-full w-full" aria-label="לוגו עו״ד עומר ראובן">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-full w-full text-[#c59d5f]" fill="none" stroke="currentColor" stroke-width="1.4">
+                <circle cx="12" cy="12" r="10" stroke="#c59d5f" />
+                <path d="M12 4v3M6 7h12" stroke-linecap="round" />
+                <path d="M8 7l-3 6h6l-3-6z" />
+                <path d="M16 7l-3 6h6l-3-6z" />
+                <path d="M10 16v3h4v-3M8 19h8" />
+              </svg>
+            </object>
+          </div>
+          <div>
+            טלפון: <a href="tel:05XXXXXXXX" class="themed-accent">05X-XXXXXXX</a> | דוא"ל: <a href="mailto:omer@reuven-law.co.il" class="themed-accent">omer@reuven-law.co.il</a> | כתובת: רחוב לדוגמה 12, תל אביב
+          </div>
+          <div class="mt-2 themed-muted">
+            © 2024 כל הזכויות שמורות למשרד עו"ד עומר ראובן
+          </div>
+        </div>
+      </div>
+    </footer>
+    <a href="https://wa.me/9725XXXXXXXX?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%99%D7%99%D7%A2%D7%95%D7%A5%20%D7%9E%D7%A9%D7%A4%D7%98%D7%99" target="_blank" rel="noopener" aria-label="צ'אט בוואטסאפ" class="whatsapp-fab fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#25D366] focus:ring-offset-[#1a202c]">
+      <span class="sr-only">צ'אט בוואטסאפ</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true">
+        <path d="M20.52 3.48A11.94 11.94 0 0 0 12.06 0C5.49 0 .14 5.32.14 11.88c0 2.09.55 4.14 1.6 5.95L0 24l6.33-1.66a11.8 11.8 0 0 0 5.72 1.46h.01c6.56 0 11.9-5.32 11.9-11.88 0-3.18-1.25-6.18-3.44-8.44ZM12.06 21.3h-.01a9.5 9.5 0 0 1-4.85-1.32l-.35-.2-3.76.99 1.01-3.66-.22-.38a9.43 9.43 0 0 1-1.46-5.05c0-5.23 4.28-9.48 9.54-9.48 2.55 0 4.95.99 6.76 2.79a9.4 9.4 0 0 1 2.8 6.69c0 5.23-4.28 9.48-9.46 9.48Zm5.46-7.1c-.3-.16-1.76-.86-2.03-.96-.27-.1-.47-.16-.68.16-.2.31-.78.96-.95 1.15-.17.19-.35.21-.64.07-.3-.15-1.25-.45-2.38-1.44-.88-.76-1.47-1.68-1.64-1.96-.17-.29-.02-.44.13-.6.13-.13.3-.34.45-.51.15-.17.2-.29.3-.48.1-.2.06-.36-.02-.52-.08-.16-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51l-.58-.01c-.2 0-.52.08-.79.36-.27.28-1.04 1-1.04 2.45s1.07 2.84 1.22 3.03c.15.19 2.1 3.2 5.08 4.49.71.31 1.27.5 1.71.64.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.36Z"/>
+      </svg>
+    </a>
+
+    <!-- Accessibility Widget (IS 5568 / WCAG 2.0 AA aligned) -->
+    <style>
+      /* README (short):
+         - כל מחלקות הווידג'ט ממותגות עם מרחב שמות accessibility-widget-* למניעת התנגשויות.
+         - ניתן להתאים צבעים ב: --aw-accent, --aw-bg, --aw-text, --aw-focus.
+         - המצבים נשמרים ב-localStorage תחת המפתח 'aw-prefs'.
+         - בדיקה: Lighthouse Accessibility, axe DevTools, NVDA/JAWS/VoiceOver. בדקו ניווט מקלדת (Tab/Shift+Tab), ניגודיות, ו-ESC לסגירה.
+      */
+      :root {
+        --aw-accent: #c59d5f;
+        --aw-bg: #0f131a;
+        --aw-text: #edf2f7;
+        --aw-focus: #c59d5f;
+      }
+      .accessibility-widget-skip-link {
+        position: absolute; inset-inline-start: 1rem; top: -100px; z-index: 1000;
+        background: var(--aw-accent); color: #000; padding: .5rem .75rem; border-radius: .375rem;
+        font-weight: 700; outline: none; transition: top .2s ease;
+      }
+      .accessibility-widget-skip-link:focus { top: .75rem; }
+
+      .accessibility-widget-container { position: fixed; inset-inline-end: 1rem; bottom: 1rem; z-index: 1000; }
+      @media (max-width: 640px) { .accessibility-widget-container { inset-inline: 0; bottom: .75rem; display: flex; justify-content: center; } }
+
+      .accessibility-widget-button {
+        background: var(--aw-accent); color: #000; border: none; border-radius: 9999px;
+        width: 3.25rem; height: 3.25rem; display: inline-flex; align-items: center; justify-content: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,.35); cursor: pointer;
+      }
+      .accessibility-widget-button:focus { outline: 3px solid var(--aw-focus); outline-offset: 3px; }
+
+      .accessibility-widget-panel {
+        position: fixed; inset-inline-end: 1rem; bottom: 5rem; width: min(92vw, 360px);
+        background: var(--aw-bg); color: var(--aw-text); border: 1px solid rgba(255,255,255,.1);
+        border-radius: .75rem; box-shadow: 0 12px 28px rgba(0,0,0,.45);
+        padding: 1rem; display: none;
+      }
+      .accessibility-widget-panel[aria-hidden="false"] { display: block; }
+      @media (max-width: 640px) { .accessibility-widget-panel { inset-inline: 1rem; bottom: 5rem; width: auto; } }
+
+      .accessibility-widget-panel h3 { font-size: 1.125rem; font-weight: 800; color: var(--aw-accent); margin: 0 0 .5rem; }
+      .accessibility-widget-row { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-block: .5rem; }
+      .accessibility-widget-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+      .accessibility-widget-btn {
+        background: rgba(255,255,255,.06); color: var(--aw-text); border: 1px solid rgba(255,255,255,.15);
+        border-radius: .5rem; padding: .5rem .6rem; cursor: pointer; width: 100%; text-align: center;
+      }
+      .accessibility-widget-btn[aria-pressed="true"] { background: rgba(197,157,95,.2); border-color: var(--aw-accent); }
+      .accessibility-widget-btn:focus { outline: 3px solid var(--aw-focus); outline-offset: 2px; }
+      .accessibility-widget-footer { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-top: .75rem; font-size: .85rem; }
+      .accessibility-widget-footer a { color: var(--aw-accent); text-decoration: underline; }
+
+      /* Utility classes toggled on <body> by the widget */
+      .aw-underline-links a { text-decoration: underline !important; }
+      .aw-contrast-high { filter: contrast(1.2) brightness(1.05); }
+      .aw-dark { background-color: #0b0e13 !important; color: #ffffff !important; }
+      .aw-light { background-color: #ffffff !important; color: #111827 !important; }
+      .aw-grayscale { filter: grayscale(1); }
+      .aw-invert { filter: invert(1) hue-rotate(180deg); }
+      .aw-readable-font { font-family: 'Heebo','Assistant',system-ui,-apple-system,'Segoe UI',Roboto,Arial,'Noto Sans Hebrew','Noto Sans',sans-serif !important; }
+      .aw-focus-outline *:focus { outline: 3px solid var(--aw-focus) !important; outline-offset: 2px; }
+      .aw-reduce-motion * { transition: none !important; animation: none !important; }
+      
+      /* WhatsApp FAB hover effect */
+      .whatsapp-fab { transition: transform .24s ease, box-shadow .24s ease; will-change: transform; }
+      .whatsapp-fab:hover { transform: scale(1.15); box-shadow: 0 12px 24px rgba(0,0,0,.25); }
+      @media (prefers-reduced-motion: reduce) {
+        .whatsapp-fab { transition: none; }
+        .whatsapp-fab:hover { transform: none; }
+      }
+    </style>
+
+    <div class="accessibility-widget-container" dir="rtl">
+      <button id="aw-toggle" type="button" class="accessibility-widget-button" aria-haspopup="dialog" aria-controls="aw-panel" aria-expanded="false" aria-label="פתיחת תפריט נגישות">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-7 7h14a1 1 0 0 1 0 2h-5v9a1 1 0 0 1-2 0v-9H5a1 1 0 0 1 0-2z" />
+        </svg>
+      </button>
+
+      <section id="aw-panel" class="accessibility-widget-panel" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="aw-title">
+        <h3 id="aw-title">הגדרות נגישות</h3>
+        <div class="accessibility-widget-row" role="group" aria-label="גודל טקסט">
+          <button class="accessibility-widget-btn" data-action="font-dec" aria-label="הקטנת טקסט">קטן –</button>
+          <button class="accessibility-widget-btn" data-action="font-inc" aria-label="הגדלת טקסט">גדול +</button>
+          <button class="accessibility-widget-btn" data-action="font-reset" aria-label="איפוס גודל">איפוס גודל</button>
+        </div>
+        <div class="accessibility-widget-row" role="group" aria-label="מצבי צבע">
+          <button class="accessibility-widget-btn" data-toggle="contrast" aria-pressed="false" aria-label="ניגודיות גבוהה">ניגודיות גבוהה</button>
+          <button class="accessibility-widget-btn" data-toggle="dark" aria-pressed="false" aria-label="מצב כהה">מצב כהה</button>
+          <button class="accessibility-widget-btn" data-toggle="light" aria-pressed="false" aria-label="מצב בהיר">מצב בהיר</button>
+        </div>
+        <div class="accessibility-widget-row" role="group" aria-label="עזרי קריאות">
+          <button class="accessibility-widget-btn" data-toggle="underline" aria-pressed="false" aria-label="הדגשת קישורים">הדגשת קישורים</button>
+          <button class="accessibility-widget-btn" data-toggle="pause" aria-pressed="false" aria-label="השהיית אנימציות">השהיית אנימציות</button>
+          <button class="accessibility-widget-btn" data-toggle="readable" aria-pressed="false" aria-label="גופן קריא">גופן קריא</button>
+          <button class="accessibility-widget-btn" data-toggle="focus" aria-pressed="false" aria-label="סיוע ניווט מקלדת">סיוע ניווט מקלדת</button>
+        </div>
+        <div class="accessibility-widget-row" role="group" aria-label="מסנני צבע (אופציונלי)">
+          <button class="accessibility-widget-btn" data-toggle="grayscale" aria-pressed="false" aria-label="גווני אפור">גווני אפור</button>
+          <button class="accessibility-widget-btn" data-toggle="invert" aria-pressed="false" aria-label="היפוך צבעים">היפוך צבעים</button>
+        </div>
+        <div class="accessibility-widget-footer">
+          <a href="/accessibility" target="_blank" rel="noopener">הצהרת נגישות</a>
+          <a href="mailto:access@example.com">סיוע: access@example.com</a>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function(){
+        const body = document.body;
+        const btn = document.getElementById('aw-toggle');
+        const panel = document.getElementById('aw-panel');
+        let lastFocused = null;
+        const PREF_KEY = 'aw-prefs';
+
+        const state = {
+          fontScale: 1,
+          contrast: false,
+          dark: false,
+          light: false,
+          underline: false,
+          pause: false,
+          readable: false,
+          focus: false,
+          grayscale: false,
+          invert: false,
+        };
+
+        function save(){ try{ localStorage.setItem(PREF_KEY, JSON.stringify(state)); }catch(e){} }
+        function load(){ try{ Object.assign(state, JSON.parse(localStorage.getItem(PREF_KEY))||{}); }catch(e){} }
+        function apply(){
+          body.style.fontSize = (state.fontScale).toFixed(2) + 'rem';
+          t('aw-contrast-high', state.contrast);
+          t('aw-dark', state.dark && !state.light);
+          t('aw-light', state.light && !state.dark);
+          t('aw-underline-links', state.underline);
+          t('aw-reduce-motion', state.pause);
+          t('aw-readable-font', state.readable);
+          t('aw-focus-outline', state.focus);
+          t('aw-grayscale', state.grayscale);
+          t('aw-invert', state.invert);
+          document.querySelectorAll('.accessibility-widget-btn[data-toggle]').forEach(el=>{
+            const key = el.getAttribute('data-toggle');
+            el.setAttribute('aria-pressed', !!state[key]);
+          });
+        }
+        function t(cls, on){ body.classList.toggle(cls, !!on); }
+
+        function openPanel(){
+          lastFocused = document.activeElement;
+          panel.setAttribute('aria-hidden','false');
+          btn.setAttribute('aria-expanded','true');
+          const first = panel.querySelector('.accessibility-widget-btn');
+          first && first.focus();
+          document.addEventListener('keydown', onKeyTrap);
+        }
+        function closePanel(){
+          panel.setAttribute('aria-hidden','true');
+          btn.setAttribute('aria-expanded','false');
+          document.removeEventListener('keydown', onKeyTrap);
+          if (lastFocused) btn.focus();
+        }
+        function onKeyTrap(e){
+          if (e.key === 'Escape'){ e.preventDefault(); closePanel(); return; }
+          if (e.key !== 'Tab') return;
+          const focusable = panel.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+          const list = Array.from(focusable).filter(el=>!el.hasAttribute('disabled'));
+          if (list.length === 0) return;
+          const first = list[0]; const last = list[list.length-1];
+          if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+        }
+
+        btn.addEventListener('click', ()=>{
+          const open = panel.getAttribute('aria-hidden') === 'false';
+          open ? closePanel() : openPanel();
+        });
+
+        panel.addEventListener('click', (e)=>{
+          const tbtn = e.target.closest('button');
+          if (!tbtn) return;
+          const action = tbtn.getAttribute('data-action');
+          const toggle = tbtn.getAttribute('data-toggle');
+          if (action){
+            if (action==='font-inc') state.fontScale = Math.min(1.6, state.fontScale + 0.1);
+            if (action==='font-dec') state.fontScale = Math.max(0.8, state.fontScale - 0.1);
+            if (action==='font-reset') state.fontScale = 1;
+            apply(); save();
+          } else if (toggle){
+            state[toggle] = !state[toggle];
+            if (toggle==='dark' && state.dark) state.light = false;
+            if (toggle==='light' && state.light) state.dark = false;
+            apply(); save();
+          }
+        });
+
+        load(); apply();
+      })();
+    </script>
+    <script>
+      // Theme toggle (Dark/Light) with persistence
+      (function(){
+        const STORAGE_KEY = 'theme-preference';
+        const body = document.body;
+        const toggle = document.getElementById('mode-toggle');
+
+        // Default: dark mode
+        function applyTheme(mode){
+          body.classList.toggle('site-dark', mode === 'dark');
+          body.classList.toggle('site-light', mode === 'light');
+          // Button icon and aria-pressed
+          if (toggle){
+            const isLight = mode === 'light';
+            const sun = toggle.querySelector('.icon-sun');
+            const moon = toggle.querySelector('.icon-moon');
+            if (sun && moon){
+              sun.classList.toggle('hidden', !isLight);
+              moon.classList.toggle('hidden', isLight);
+            }
+            toggle.setAttribute('aria-pressed', String(isLight));
+          }
+        }
+        function loadTheme(){
+          try { return localStorage.getItem(STORAGE_KEY) || 'dark'; } catch(e){ return 'dark'; }
+        }
+        function saveTheme(mode){ try { localStorage.setItem(STORAGE_KEY, mode); } catch(e){} }
+
+        let current = loadTheme();
+        applyTheme(current);
+
+        if (toggle){
+          toggle.addEventListener('click', ()=>{
+            current = (current === 'dark') ? 'light' : 'dark';
+            applyTheme(current);
+            saveTheme(current);
+            toggle.focus(); // keep focus for accessibility
+          });
+          // keyboard accessible naturally as a button
+        }
+      })();
+    </script>
+    <script>
+      // Scroll to top when clicking the brand (logo/name) without navigating away
+      (function(){
+        const brandLink = document.getElementById('brand-home-link');
+        if (!brandLink) return;
+        function scrollTopSmooth(ev){
+          if (ev) ev.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        brandLink.addEventListener('click', scrollTopSmooth);
+        brandLink.addEventListener('keydown', (e)=>{
+          // Support Space as activation in addition to Enter
+          if (e.code === 'Space' || e.key === ' '){ e.preventDefault(); scrollTopSmooth(); }
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+
